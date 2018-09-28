@@ -1,0 +1,123 @@
+<div class="card" ng-controller="vehicle_brand">
+	<div class="card-body" ng-init="getbranddata()">
+		<h5 class="card-title">Vehicle Brand</h5>
+		<div class="row">
+        <div class="form-group col-md-2">
+            <select class="form-control" ng-model="size">
+              <option value="" selected hidden disabled>Limit</option>
+              <option ng-value="10" selected="selected">10</option>
+              <option ng-value="25">25</option>
+              <option ng-value="50">50</option>
+              <option ng-value="100">100</option>
+            </select>
+        </div>
+        <div class="col-md-7"></div>
+        <div class="form-group col-md-3">
+            <input type="text" ng-model="search" class="form-control border border-primary" placeholder="Search">
+        </div>
+      </div>
+		<h4 style="cursor : pointer ;" class="text-primary text-right" ng-click="add_new_brand()" >Add New <i class="fa fa-plus-square"></i></h4>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<tr>
+					<th>#</th>
+					 <th class="abc" ng-click="sort('brand_name')">Brand Name &nbsp; <i class="fa fa-sort" aria-hidden="true"></i></th>
+					 <th class="abc" ng-click="sort('updated_at')">Updated at &nbsp; <i class="fa fa-sort" aria-hidden="true"></i></th>
+					<th>Status</th>
+					<th>Manage</th>
+				</tr>
+				<tr dir-paginate="x in allData|orderBy:sortKey:reverse|filter:search|itemsPerPage:size||10">
+					<td>{{$index+1}}</td>
+					<td>{{x.brand_name}}</td>
+					<td>{{x.updated_at | date:'medium'}}</td>
+					<td>
+						<span ng-if="x.status==1" class="badge badge-success">Active</span>
+						<span ng-if="x.status==0" class="badge badge-danger">Deactive</span>
+					</td>
+					<td>
+						<div class="btn-group dropdown">
+			              <button type="button" class="btn btn-teal dropdown-toggle btn-sm btn btn-success" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage
+			              </button>
+			              <div class="dropdown-menu">
+			                <a class="text-center btn btn-sm" ng-click="askUpdate(x)" data-target="#updateuser" data-toggle="modal" ><i class="fa fa-pencil"></i>Edit</a>
+			                  <div class="dropdown-divider"></div>
+			                <div class="dropdown-divider"></div>
+			                  <div ng-if="x.status == '0' ">
+			                    <a class="text-center btn btn-sm" ng-click="askView(x)" data-target="#Active" data-toggle="modal" ><i class="fa fa-history" aria-hidden="true" ></i>Active</a>
+			                  </div>
+			                  <div ng-if="x.status == '1' ">
+			                    <a class="text-center btn btn-sm" ng-click="askView(x)" data-target="#delModal" data-toggle="modal"><i class="fa fa-share"aria-hidden="true" ></i>Deactive</a>
+			                  </div>
+			              </div>
+			            </div>
+					</td>
+				</tr>
+			</table>
+			<br>
+		      <div class="float-right">
+		       <dir-pagination-controls
+		         max-size=""
+		         direction-links="true"
+		         boundary-links="true" >
+		         <br>
+		      </dir-pagination-controls>
+		      </div>
+		</div>
+	</div>
+	<div class="modal fade" id="delModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Deactive User</h3>
+      </div>
+      <div class="modal-body">
+        <p>Are Sure Want to Deactive This <b>{{ selectedObj.brand_name }}</b></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button ng-click="brand_deactive(selectedObj)" class="btn btn-primary" data-dismiss="modal">Deactive</button>
+      </div>
+  </div>
+  </div>
+</div>
+  <div class="modal fade" id="Active">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h3>Active User</h3>
+                  </div>
+                  <div class="modal-body">
+                      <p>Are Sure Want to Deactive This <b>{{ selectedObj.brand_name }}</b></p>
+                      
+                  </div>
+                  <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Close</button>
+                      <button ng-click="brand_active(selectedObj)" class="btn btn-primary" data-dismiss="modal">Active</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="modal fade" id="updateuser">
+		  <div class="modal-dialog">
+		    <div class="modal-content" style="background: #ffffff;">
+		        <div class="modal-header">
+		            <h3>Edit Brand</h3>
+		        </div>
+		        <div class="modal-body">
+		          <div class="form-group row">
+		            <label class="col-sm-3 col-form-label">User Name</label>
+		            <div class="col-sm-9">
+		              <input type="text" ng-model="newData.brand_name" class="form-control" name="">
+		            </div>
+		          </div>
+		        <div class="modal-footer">
+		            <button class="btn btn-danger" data-dismiss="modal">Close</button>
+		            <button ng-click="brand_update()" class="btn btn-primary" data-dismiss="modal">Update</button>
+		        </div>            
+		    </div>
+		  </div>
+		</div>
+
+
+</div>    

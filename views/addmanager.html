@@ -1,0 +1,40 @@
+<div class="card" ng-controller="manager">
+	<div class="card-body">
+		<span ng-if="msg">
+			<div class="alert alert-danger alert-dismissible">
+			  <button class="close" data-dismiss="alert" aria-label="close" >&times;</button>
+				<p>{{msg}}</p>
+			</div>
+		</span>
+		<h5>Manager's</h5>
+		<hr />
+		<form class="form-sample">
+		<div class="row">
+			<div class="form-group form-row col-md-6">
+				<label>Name</label>
+				<input type="text"  ng-model="newData.name" class="form-control" placeholder="Manager name here" required>
+			</div>
+			<div class="form-group form-row col-md-6">
+				<label>User Name</label>
+				<input type="email" class="form-control" ng-model="newData.username" placeholder="Email here" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group form-row col-md-6">
+				<label>Password</label>
+				<input type="password" id="pass" oninput="myFunction()" class="form-control" ng-model="newData.password" placeholder="Password here" required>
+				<p class="text text-danger" id="pass_msg"></p>
+			</div>
+			<div class="form-group form-row col-md-6">
+				<label>Confirm Password</label>
+				<input type="password" id="con_pass" oninput="myfunction2()" class="form-control" ng-model="newData.cpass" placeholder="Confirm password here" required>
+				<p class="text text-danger" id="con_pass_msg"></p>
+			</div>
+		</div>
+		<br>
+		<div>
+			<input type="submit" class="btn btn-success" ng-click="add()" value="Add Manager" name="" id="sub">
+		</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,28 @@
+<div class="card" ng-controller="vehicle_brand">
+	<div class="card-body">
+		<span ng-if="msg" id="#success-alert">
+			<div class="alert alert-danger alert-dismissible">
+			  <button class="close" data-dismiss="alert" aria-label="close" >&times;</button>
+				<p>{{msg}}</p>
+			</div>
+		</span>	
+		<span ng-if="msg1" id="#success-alert">
+			<div class="alert alert-success alert-dismissible">
+			  <button class="close" data-dismiss="alert" aria-label="close" >&times;</button>
+				<p>{{msg1}}</p>
+			</div>
+		</span>	
+		<div class="row">
+			<div class="col-md-6">
+				<h5 class="card-title">Add Vehicle Brand</h5>
+				<br>
+				<div class="form-group">
+					<label>Vehicle Brand Name</label>
+					<input type="text" class="form-control" ng-model="newData.brand_name" name="brand_name" placeholder="Vehicle brand name here">
+					<br>
+					<input type="submit" ng-click="addbrand()" class="btn btn-success" value="Add Brand">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

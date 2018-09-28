@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+  <title>Zoom Car</title>
+  <!-- plugins:css -->
+  <link rel="icon" href="/public/images/zoom.jpg">
+  <link rel="stylesheet" href="/public/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/public/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/public/vendors/css/vendor.bundle.addons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/public/css/angularjs-datetime-picker.css" />
+  <link rel="stylesheet" href="/public/css/pagination.css" />
+
+  <link rel="stylesheet" href="/public/css/style.css">
+  <!-- endinject -->
+</head>
+
+<body ng-app="myApp">
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+        <a class="navbar-brand brand-logo" href="#/!">
+          <!-- <img src="/public/images/logo.svg" alt="logo" /> -->
+          <p style="color: #000;font-size: 25px;">Zoom Car</p>
+        </a>
+        <a class="navbar-brand brand-logo-mini" href="#/!">
+          Zoom Car
+          <!-- <img src="/public/images/logo-mini.svg" alt="logo" /> -->
+        </a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center">
+        <ul class="navbar-nav navbar-nav-right header-links d-none d-md-flex">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="mdi mdi-bookmark-plus-outline"></i>SignOut</a>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <div class="nav-link">
+              <div class="user-wrapper">
+                <div class="profile-image">
+                  <img src="/public/images/faces/face1.jpg" alt="profile image">
+                </div>
+                <div class="text-wrapper">
+                  <p class="profile-name">Admin</p>
+                  <div>
+                    <small class="designation text-muted">Admin</small>
+                    <span class="status-indicator online"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/!">
+              <!-- <i class="menu-icon mdi mdi-television"></i> -->
+              <img class="menu-icon" src="/public/assets/images/dashboard.png" alt="menu icon">
+               <span class="menu-title"> &nbsp;Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#!Viewvendor" aria-expanded="false" aria-controls="ui-basic">
+              <img class="menu-icon" src="/public/assets/images/user.png" alt="menu icon">
+              <span class="menu-title">Vendor</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <img class="menu-icon" src="/public/assets/images/car.png" alt="menu icon">
+              <span class="menu-title">Vehicle</span>
+              <i class="menu-arrow"></i>
+            </a>
+             <div class="collapse" id="ui-basic" style="">
+              <ul class="nav flex-column sub-menu">
+               <li class="nav-item "><a class="nav-link" href="#!Viewcar"><img class="menu-icon" src="/public/assets/images/car.png" alt="menu icon">Vehicle</span></a></li>
+               <li class="nav-item "><a class="nav-link" href="#!Brand"><img class="menu-icon" src="/public/assets/images/brand.png" alt="menu icon">Vehicle Brand</span></a></li>
+               <li class="nav-item "><a class="nav-link" href="#!Modal"><img class="menu-icon" src="/public/assets/images/model.png" alt="menu icon">Vehicle Modal</span></a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!Booking">
+              <img class="menu-icon" src="/public/assets/images/book.png" alt="menu icon">
+              <span class="menu-title">booking</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!User">
+              <img class="menu-icon" src="/public/assets/images/users.png" alt="menu icon">
+              <span class="menu-title">User</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!Manager">
+              <img class="menu-icon" src="/public/assets/images/manager.png" alt="menu icon">
+              <span class="menu-title">Manager</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#!Profile">
+              <img class="menu-icon" src="/public/assets/images/profile.png" alt="menu icon">
+              <span class="menu-title">My Profile</span>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper" ng-view>
+          
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="container-fluid clearfix">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
+              <a href="http://www.bootstrapdash.com/" target="_blank">Car</a>. All rights reserved.</span>
+            </span>
+          </div>
+        </footer>
+        
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="/public/vendors/js/vendor.bundle.base.js"></script>
+  <script src="/public/vendors/js/vendor.bundle.addons.js"></script>
+
+  <script src="/public/js/off-canvas.js"></script>
+  <script src="/public/js/misc.js"></script>
+
+  <script src="/public/js/dashboard.js"></script>
+  <script src="/public/js/angularjs-datetime-picker.js"></script>
+  
+  <script src="/public/js/dirPagination.js"></script>
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+  
+  <script src="/public/js/index.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,464 @@
+<div ng-controller="viewcar" class="card">
+  <div class="card-body">
+    <div  ng-init="getData()">
+    <span ng-if="msg" id="#success-alert" ng-init="dis()">
+      <div class="alert alert-danger alert-dismissible">
+        <button class="close" data-dismiss="alert" aria-label="close" >&times;</button>
+        <p>{{msg}}</p>
+      </div>
+    </span> 
+    <span ng-if="msg1" id="#success-alert" ng-init="dis()">
+      <div class="alert alert-success alert-dismissible">
+        <button class="close" data-dismiss="alert" aria-label="close" >&times;</button>
+        <p>{{msg1}}</p>
+      </div>
+    </span>
+            <h1>vehicle</h1>
+            <p class="card-description">
+                <h4 style="cursor : pointer ;" class="text-primary text-right" ng-click="addnew()" >Add New <i class="fa fa-plus-square"></i></h4>
+                 </p>
+                 <div class="row">
+                  <div class="form-group col-md-2">
+                      <select class="form-control" ng-model="size">
+                        <option value="" selected hidden disabled>Limit</option>
+                        <option ng-value="10" selected="selected">10</option>
+                        <option ng-value="25">25</option>
+                        <option ng-value="50">50</option>
+                        <option ng-value="100">100</option>
+                      </select>
+                  </div>
+                  <div class="col-md-7"></div>
+                  <div class="form-group col-md-3">
+                      <input type="text" ng-model="search" class="form-control border border-primary" placeholder="Search">
+                  </div>
+                </div>
+            <div class="table-responsive">     
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Vendor_Name</th>
+                    <th>model</th>
+                    <th>brand</th>
+                    <th>Updated At</th>
+                    <th>status</th>
+                    <th>Manage</th>
+                </tr>
+                <tr dir-paginate="x in allData|orderBy:sortKey:reverse|filter:search|itemsPerPage:size||10">
+                    <td ng-bind="$index+1"></td>
+                    <td><img ng-src="{{x.picture}}" ></td>
+                    <td ng-bind="x.vendor_name"></td>
+                    <td ng-bind="x.modal_name"></td>
+                    <td ng-bind="x.brand_name"></td>
+                    <td>{{x.updated_at |date:'medium'}}</td>
+                    <td>
+                            <span ng-if="x.cstatus==1" class="badge badge-success">Active</span>
+                            <span ng-if="x.cstatus==0" class="badge badge-danger">Deactive</span>
+                    </td>
+                    <td><div class="btn-group dropdown">
+                            <button type="button" class="btn btn-teal dropdown-toggle btn-sm btn btn-success" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Manage
+                            </button>
+                            <div class="dropdown-menu">
+
+                                <a class="text-success text-center btn" style="font-size: 18px;" ng-click="askUpdate(x); getmodal(x.brand_id)" data-target="#addModal" data-toggle="modal" ><button  class="btn btn-success" style="margin-right: 10px;"><i class="fa fa-pencil"></i></button>Edit</a>
+                                <div class="dropdown-divider"></div>
+                                <div>
+                                        <div ng-if="x.cstatus == '0' ">
+                                                <a class="text-danger text-center btn" ng-click="askActive(x)" data-target="#Active" data-toggle="modal">Active</a>
+                                        </div>
+                                        <div ng-if="x.cstatus == '1' ">
+                                                <a class="text-danger text-center btn" ng-click="askActive(x)" data-target="#delModal" data-toggle="modal">Deactive</a>
+                                        </div>
+                                </div>
+                                
+                                <div class="dropdown-divider"></div>
+                                <a class="text-danger text-center btn"  ng-click="askView(x)" data-target="#viewmodal" data-toggle="modal" >View More</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            </div>
+    </div>
+  </div>
+  <div class="modal fade" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background: #ffffff;">
+            <div class="modal-header">
+                <h3>Update  Vehicle</h3>
+            </div>
+            <div class="modal-body">
+                    <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Vendor</label>
+                                <div class="col-sm-8" ng-init="vendorgetData()">
+                                    <select ng-model="newData.vendor_id" class="form-control" required>
+                                        <option value="" selected hidden disabled>Select</option>
+                                        <option ng-value="{{vendor.vendor_id}}" ng-repeat="vendor in vendorData">{{vendor.vendor_name}}</option>
+                                    </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Brand</label>
+                                <div class="col-sm-8" ng-init="getbrand()">
+                                    <select ng-model="newData.brand_id" class="form-control" ng-click="getmodal(newData.brand_id)" required>
+                                        <option value="" selected hidden disabled>Select</option>
+                                        <option ng-value="{{brand.id}}" ng-repeat="brand in branddatas">{{brand.brand_name}}</option>
+                                    </select>
+                                </div>
+                              </div>
+                            </div>
+                            
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Model</label>
+                                <div class="col-sm-8">
+                                   <select ng-model="newData.modal_id" class="form-control" required>
+                                        <option value="" selected hidden disabled>Select</option>
+                                        <option ng-value="{{modal.id}}" ng-repeat="modal in modal_data">{{modal.modal_name}}</option>
+                                    </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Picture</label>
+                                <div class="col-sm-8">
+                                    <input type="file" ngf-select ng-model="newData.picture" name="file" ngf-pattern="'image/*'"accept="image/*" ngf-max-size="20MB" class="form-control" required>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Seater</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="newData.seater" class="form-control" required>
+                                </div>
+                              </div>
+                            </div>
+                              <div class="col-md-6">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Address</label>
+                                <div class="col-sm-8">
+                                    <textarea ng-model="newData.address" class="form-control" required></textarea>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Base Price</label>
+                                <div class="col-sm-8">
+                                    <input type="number" ng-model="newData.base_price_h" class="form-control" required>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Extra Price</label>
+                                <div class="col-sm-8">
+                                    <input type="number" ng-model="newData.extra_price" class="form-control" required>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Price Inclued Hour</label>
+                                <div class="col-sm-8">
+                                    <input type="number" ng-model="newData.price_inclued_hour" class="form-control" required>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Deposit Amount</label>
+                                <div class="col-sm-8">
+                                    <input type="number" ng-model="newData.deposite_amt" class="form-control" required>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Discount 2 Times</label>
+                                <div class="col-sm-8">
+                                        <input type="number" ng-model="newData.discount_2times" class="form-control" required>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Discount 4 Times</label>
+                                <div class="col-sm-8">
+                                        <input type="number" ng-model="newData.discount_4times" class="form-control" required>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Fuel Include</label>
+                                    <div class="col-sm-4">
+                                        <div class="form-radio" >
+                                          
+                                          <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="fuel_include" id="membershipRadios1" ng-value="1"  ng-model="newData.fuel_include" required> Yes
+                                          <i class="input-helper"></i></label>
+                                        </div>
+
+                                      </div>
+                                      <div class="col-sm-4">
+                                        <div class="form-radio">
+                                          <label class="form-check-label" >
+                                            <input type="radio" class="form-check-input" name="fuel_include" id="membershipRadios2"  ng-model="newData.fuel_include" ng-value="0" required > No
+                                          <i class="input-helper"></i></label>
+                                        </div>
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Tax Include</label>
+                                    <div class="col-sm-4">
+                                        <div class="form-radio">
+                                          <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" ng-model="newData.tax_include" name="tax_include" id="membershipRadios1" ng-value="1" required> Yes
+                                          <i class="input-helper"></i></label>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-4">
+                                        <div class="form-radio">
+                                          <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" ng-model="newData.tax_include" name="tax_include" id="membershipRadios2" ng-value="0" required> No
+                                          <i class="input-helper"></i></label>
+                                        </div>
+                                      </div>
+                                    <!-- <div class="col-sm-8">
+                                            <input type="text" ng-model="newData.tax_include" class="form-control" required>
+                                    </div> -->
+                                  </div>
+                                </div>
+                          </div>
+                          <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Insurance Include</label>
+                                    <div class="col-sm-4">
+                                        <div class="form-radio">
+                                          <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" ng-model="newData.insurance_include" name="insurance_include" id="membershipRadios1" ng-value="1" required> Yes
+                                          <i class="input-helper"></i></label>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-4">
+                                        <div class="form-radio">
+                                          <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" ng-model="newData.insurance_include" name="insurance_include" id="membershipRadios2" ng-value="0" required> No
+                                          <i class="input-helper"></i></label>
+                                        </div>
+                                      </div>
+                                    <!-- <div class="col-sm-8">
+                                            <input type="text" ng-model="newData.insurance_include" class="form-control" required>
+                                    </div> -->
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Price Per Km</label>
+                                    <div class="col-sm-8">
+                                            <input type="number" ng-model="newData.price_per_km" class="form-control" required>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                          <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">City</label>
+                                    <div class="col-sm-8">
+                                            <input type="text" ng-model="newData.city" class="form-control" required>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Vehicle No</label>
+                                    <div class="col-sm-8">
+                                            <input type="text" ng-model="newData.vehicle_no" class="form-control" required>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button ng-click="add()" class="btn btn-primary" data-dismiss="modal">Update</button>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="modal fade" id="viewmodal">
+          <div class="modal-dialog">
+              <div class="modal-content" style="background: #ffffff;">
+                  <div class="modal-header">
+                      <h3>view Vendor</h3>
+                  </div>
+                  <div class="modal-body">
+                      <table class="table table-condensed table-bordered">
+                              <tr>
+                                  <th>Vendor</th>
+                                  <td ng-bind="selectedObj.vendor_name"></td>
+                              </tr>
+                              <tr>
+                                  <th>Model</th>
+                                  <td ng-bind="selectedObj.modal_name"></td>
+                              </tr>
+                              <tr>
+                                  <th>Brand</th>
+                                  <td ng-bind="selectedObj.brand_name"></td>
+                              </tr>
+                              <tr>
+                                  <th>Picture</th>
+                                  <td><img height="40" width="40" ng-src="{{selectedObj.picture}}"></td>
+                              </tr>
+                              <tr>
+                                  <th>Seater</th>
+                                  <td ng-bind="selectedObj.seater"></td>
+                              </tr>
+                              <tr>
+                                      <th>Address</th>
+                                      <td ng-bind="selectedObj.address"></td>
+                              </tr>
+                              <tr>
+                                      <th>Base Price</th>
+                                      <td ng-bind="selectedObj.base_price_h"></td>
+                              </tr>
+                              <tr>
+                                      <th>Extra Price</th>
+                                      <td ng-bind="selectedObj.extra_price"></td>
+                              </tr>
+                              <tr>
+                                      <th>Price Inclued Hour</th>
+                                      <td ng-bind="selectedObj.price_inclued_hour"></td>
+                              </tr>
+                              <tr>
+                                      <th>Deposite Amount</th>
+                                      <td ng-bind="selectedObj.deposite_amt"></td>
+                              </tr>
+                              <tr>
+                                      <th>Discount 2 Times</th>
+                                      <td ng-bind="selectedObj.discount_2times"></td>
+                              </tr>
+                              <tr>
+                                      <th>Discount 4 Times</th>
+                                      <td ng-bind="selectedObj.discount_4times"></td>
+                              </tr>
+                              <tr>
+                                      <th>Fuel Include</th>
+                                      <td>
+                                              <div ng-if="selectedObj.fuel_include == '1' ">
+                                                      Yes
+                                              </div>
+                                                      
+                                              <div ng-if="selectedObj.fuel_include == '0' ">
+                                                      NO
+                                              </div>
+                                      </td>
+                              </tr>
+                              <tr>
+                                      <th>Tax Include</th>
+                                      <td>
+                                              <div ng-if="selectedObj.tax_include == '1' ">
+                                                      Yes
+                                              </div>
+                                                      
+                                              <div ng-if="selectedObj.tax_include == '0' ">
+                                                      NO
+                                              </div>
+                                      </td>
+                              </tr>
+                              <tr>
+                                      <th>Insurance Include</th>
+                                      <td>
+                                              <div ng-if="selectedObj.insurance_include == '1' ">
+                                                      Yes
+                                              </div>
+                                                      
+                                              <div ng-if="selectedObj.insurance_include == '0' ">
+                                                      NO
+                                              </div>
+                                      </td>
+                              </tr>
+                              <tr>
+                                      <th>Price Per Km</th>
+                                      <td ng-bind="selectedObj.price_per_km"></td>
+                              </tr>
+                              <tr>
+                                      <th>City</th>
+                                      <td ng-bind="selectedObj.city"></td>
+                              </tr>
+                              <tr>
+                                  <th>City</th>
+                                  <td ng-bind="selectedObj.vehicle_no"></td>
+                              </tr>
+
+                      </table>     
+                      
+                  </div>
+                  <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+  </div>
+  <div class="modal fade" id="delModal">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h3>Deactive</h3>
+              </div>
+              <div class="modal-body">
+                  <p>Are Sure Want to Deactive <b>{{ selectedObj.brand_name}}</b>  Vehicle No <b> {{selectedObj.vehicle_no}}</b></p>
+                  
+              </div>
+              <div class="modal-footer">
+                  <button class="btn btn-danger" data-dismiss="modal">Close</button>
+                  <button ng-click="deactive()" class="btn btn-primary" data-dismiss="modal">Deactive</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="modal fade" id="Active">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h3>Active</h3>
+                  </div>
+                  <div class="modal-body">
+                      <p>Are Sure Want to Active <b>{{ selectedObj.brand_name }}</b> Vehicle No <b>{{selectedObj.vehicle_no}}</b></p>
+                      
+                  </div>
+                  <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Close</button>
+                      <button ng-click="active(selectedObj)" class="btn btn-primary" data-dismiss="modal">Active</button>
+                  </div>
+              </div>
+          </div>
+  </div>
+</div>
+    

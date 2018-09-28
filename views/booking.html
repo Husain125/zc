@@ -1,0 +1,97 @@
+<div np-controller="viewvendor" ng-init="getData()">
+  <h3>Booking</h3>
+  <div class="card">
+    <form class="card-body" name="vendor">
+      <div class="form-sample">
+        <p class="card-description">
+          <b>Date and Time</b>
+        </p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Date and Time form</label>
+              <div class="col-sm-8">
+                <input ng-model="newData.from" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" close-on-select="false" placeholder="Date Time From" /> 
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Date and Time to</label>
+                <div class="col-sm-8">
+                   <input ng-model="newData.to" datetime-picker date-format="yyyy-MM-dd HH:mm:ss" close-on-select="false" placeholder="Date Time To" /> 
+                </div>
+              </div>
+          </div>
+        </div>
+        <button type="submit" ng-click= "booking()" class="btn btn-success mr-2" >Submit</button>
+      </div>
+    </form>
+  </div>
+  <br>
+  <div class="card">
+    <div class="table-responsive card-body">
+        <table class="table table-hover table-striped">
+            <tr>
+                <th>#</th>
+                <th>model</th>
+                <th>brand</th>
+                <th>Basic Km</th>
+                <th>Price Basic</th>
+                <th>Silver Km</th>
+                <th>Price Silver</th>
+                <th>Gold Km</th>
+                <th>Price Gold</th>
+                <th>Book</th>
+            </tr>
+            <tr ng-repeat="x in allData">
+                <td ng-bind="$index+1"></td>
+                <td ng-bind="x.model"></td>
+                <td ng-bind="x.brand"></td>
+                <td ng-bind="x.km_basic"></td>
+                <td ng-bind="x.price_basic"></td>
+                <td ng-bind="x.km_silver"></td>
+                <td ng-bind="x.price_silver"></td>
+                <td ng-bind="x.km_gold"></td>
+                <td ng-bind="x.price_gold"></td>
+                <td><button type="button" data-target="#confirmboking" ng-click="bookthis(x)" data-toggle="modal" class="btn btn-info btn-sm">Book</button></td>
+            </tr>
+        </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="confirmboking">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background: #ffffff;">
+        <div class="modal-header">
+            <h3>Please select package</h3>
+        </div>
+        <div class="modal-body">
+          <table class="table">
+            <tr>
+              <td><b>Basic </b></td>
+              <td><b>Km : </b><span ng-bind="selectedObj.km_basic"></span></td>
+              <td><b>Price : </b><span ng-bind="selectedObj.price_basic"></span></td>
+              <td><button class="btn btn-success btn-xs" data-dismiss="modal" ng-click="package(selectedObj.km_basic, selectedObj.price_basic, selectedObj.vehicle_id,newData)">Book</button></td>
+            </tr>
+            <tr>
+              <th>Silver</th>
+              <td><b>Km : </b><span ng-bind="selectedObj.km_silver"></span></td>
+              <td><b>Price : </b><span ng-bind="selectedObj.price_silver"></span></td>
+              <td><button class="btn btn-success btn-xs" data-dismiss="modal" ng-click="package(selectedObj.km_silver, selectedObj.price_silver, selectedObj.vehicle_id,newData)">Book</button></td>
+            </tr>
+            <tr>
+              <th>Gold</th>
+              <td><b>Km : </b><span ng-bind="selectedObj.km_gold"></span></td>
+              <td><b>Price : </b><span ng-bind="selectedObj.price_gold"></span></td>
+              <td><button class="btn btn-success btn-xs" data-dismiss="modal" ng-click="package(selectedObj.km_gold, selectedObj.price_gold, selectedObj.vehicle_id,newData)"> Book</button></td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>            
+    </div>
+  </div>
+</div>

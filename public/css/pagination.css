@@ -1,0 +1,28 @@
+   .sort-icon {
+    font-size: 9px;
+    margin-left: 5px;
+}
+
+.abc {
+    cursor:pointer;
+}
+dir-pagination-controls a{
+  position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+dir-pagination-controls a:hover{
+  color: #fff;
+  background-color: #007DF9;  
+  border:1px solid #E4E4E4;
+}
+dir-pagination-controls a:focus{
+  color: #fff;
+  background-color: #007DF9;  
+  border:1px solid #E4E4E4;
+}

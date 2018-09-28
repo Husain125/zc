@@ -1,0 +1,245 @@
+
+<div class="col-12 grid-margin" ng-controller="addcar" ng-init="getData()">
+  <h3>Add Vehicle</h3>
+  <div class="card">
+    <div class="card-body">
+      <form class="form-sample">
+        <p class="card-description">
+          Vehicle info
+        </p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Vendor</label>
+              <div class="col-sm-8">
+                  <select ng-model="newData.vendor_id" class="form-control" required>
+                      <option value="" selected hidden disabled>Select Vendor</option>
+                      <option value="{{vendor.vendor_id}}" ng-repeat="vendor in allData">{{vendor.vendor_name}}</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Brand</label>
+              <div class="col-sm-8">
+                <select ng-init="getbrand()" ng-model="newData.brand_id"  ng-click="getmodel(newData.brand_id)" class="form-control" required>
+                  <option value="" selected hidden disabled>Select Brand</option>
+                  <option value="{{brand.id}}" ng-repeat="brand in allData1" >{{brand.brand_name}}</option>
+              </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Model</label>
+              <div class="col-sm-8">
+                <select ng-model="newData.modal_id" class="form-control" required>
+                  <option  value="" selected hidden disabled>Select Brand</option>
+                  <option value="{{model.id}}" ng-repeat="model in allData2" >{{model.modal_name}}</option>
+              </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Picture</label>
+              <div class="col-sm-8">
+                  <input type="file" ngf-select ng-model="newData.picture" name="file" ngf-pattern="'image/*'"accept="image/*" ngf-max-size="20MB" class="form-control" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Seater</label>
+              <div class="col-sm-8">
+                  <input type="text" ng-model="newData.seater" class="form-control" required>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Lati</label>
+              <div class="col-sm-8">
+                  <input type="text" ng-model="newData.lati" class="form-control" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Longi</label>
+              <div class="col-sm-8">
+                  <input type="text" ng-model="newData.longi" class="form-control" required>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Address</label>
+              <div class="col-sm-8">
+                  <input type="text" ng-model="newData.address" class="form-control" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Base Price</label>
+              <div class="col-sm-8">
+                  <input type="number" ng-model="newData.base_price_h" class="form-control" required>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Extra Price</label>
+              <div class="col-sm-8">
+                  <input type="number" ng-model="newData.extra_price" class="form-control" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Price Inclued Hour</label>
+              <div class="col-sm-8">
+                  <input type="number" ng-model="newData.price_inclued_hour" class="form-control" required>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Deposite Amount</label>
+              <div class="col-sm-8">
+                  <input type="number" ng-model="newData.deposite_amt" class="form-control" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Discount 2 Times</label>
+              <div class="col-sm-8">
+                      <input type="number" ng-model="newData.discount_2times" class="form-control" required>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Discount 4 Times</label>
+              <div class="col-sm-8">
+                      <input type="number" ng-model="newData.discount_4times" class="form-control" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Fuel Include</label>
+                  <div class="col-sm-4">
+                      <div class="form-radio">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" ng-model="newData.fuel_include" name="fuel_include" id="membershipRadios1" value="1" required> Yes
+                        <i class="input-helper"></i></label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-radio">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" ng-model="newData.fuel_include" name="fuel_include" id="membershipRadios2" value="0" required> No
+                        <i class="input-helper"></i></label>
+                      </div>
+                    </div>
+                  <!-- <div class="col-sm-8">
+                          <input type="text" ng-model="newData.fuel_include" class="form-control" required>
+                  </div> -->
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Tax Include</label>
+                  <div class="col-sm-4">
+                      <div class="form-radio">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" ng-model="newData.tax_include" name="tax_include" id="membershipRadios1" value="1" required> Yes
+                        <i class="input-helper"></i></label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-radio">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" ng-model="newData.tax_include" name="tax_include" id="membershipRadios2" value="0" required> No
+                        <i class="input-helper"></i></label>
+                      </div>
+                    </div>
+                  <!-- <div class="col-sm-8">
+                          <input type="text" ng-model="newData.tax_include" class="form-control" required>
+                  </div> -->
+                </div>
+              </div>
+        </div>
+        <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Insurance Include</label>
+                  <div class="col-sm-4">
+                      <div class="form-radio">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" ng-model="newData.insurance_include" name="insurance_include" id="membershipRadios1" value="1" required> Yes
+                        <i class="input-helper"></i></label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-radio">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" ng-model="newData.insurance_include" name="insurance_include" id="membershipRadios2" value="0" required> No
+                        <i class="input-helper"></i></label>
+                      </div>
+                    </div>
+                  <!-- <div class="col-sm-8">
+                          <input type="text" ng-model="newData.insurance_include" class="form-control" required>
+                  </div> -->
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Price Per Km</label>
+                  <div class="col-sm-8">
+                          <input type="number" ng-model="newData.price_per_km" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">City</label>
+                  <div class="col-sm-8">
+                          <input type="text" ng-model="newData.city" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+               <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Vehicle No</label>
+                  <div class="col-sm-8">
+                          <input type="text" ng-model="newData.vehicle_no" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <button ng-click="add()" type="submit" id="loginSubmit" class="btn btn-success loginFormElement">Add Vehicle</button>
+      </form>
+    </div>
+  </div>
+</div>

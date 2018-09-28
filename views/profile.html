@@ -1,0 +1,104 @@
+<div class="card" ng-controller="profile">
+	<span ng-if="msg" id="#success-alert" ng-init="dis()">
+			<div class="alert alert-danger alert-dismissible">
+			  <button class="close" data-dismiss="alert" aria-label="close" >&times;</button>
+				<p>{{msg}}</p>
+			</div>
+		</span>	
+		<span ng-if="msg1" id="#success-alert" ng-init="dis()">
+			<div class="alert alert-success alert-dismissible">
+			  <button class="close" data-dismiss="alert" aria-label="close" >&times;</button>
+				<p>{{msg1}}</p>
+			</div>
+		</span>
+	<div class="card-body row" ng-init="getData()">
+		<div class="col-md-3">
+			<img height="100%" width="100%" ng-src="{{newData.image}}">
+		</div>
+		<div class="col-md-9">
+			<table class="table">
+				<tr>
+					<td>Name</td>
+					<td>{{newData.name}}</td>
+				</tr>
+				<tr>
+					<td>User Name</td>
+					<td>{{newData.username}}</td>
+				</tr>
+				<tr>
+					<td>Post</td>
+					<td>
+						<span ng-if="newData.role==1">Manager</span>
+						<span ng-if="newData.role==0">Admin</span>
+					</td>
+				</tr>
+				<tr>
+					<!-- {{sessionStorage.getItem("uid")}} -->
+				</tr>
+
+			</table>
+			<br>
+			<button class="btn btn-primary" ng-click="askUpdate(newData)" data-target="#delModal" data-toggle="modal">Update Profile</button>
+			<button class="btn btn-success" data-target="#odal" data-toggle="modal">Change Password</button>
+		</div>
+	</div>
+	<div class="modal fade" id="delModal">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background: #ffffff;">
+        <div class="modal-header">
+            <h3>Edit User</h3>
+        </div>
+        <div class="modal-body">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Name</label>
+            <div class="col-sm-9">
+              <input type="text" ng-model="abc.name" class="form-control" name="">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">User Name</label>
+            <div class="col-sm-9">
+              <input type="text" ng-model="abc.username" class="form-control"  name="" disabled>
+            </div>
+          </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button ng-click="update()" class="btn btn-primary" data-dismiss="modal">Update</button>
+        </div>            
+    </div>
+  </div>
+</div>
+</div>
+<div class="modal fade" id="odal">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background: #ffffff;">
+        <div class="modal-header">
+            <h3>Edit User</h3>
+        </div>
+        <div class="modal-body">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Old Password</label>
+            <div class="col-sm-9">
+              <input type="password" ng-model="abc.oldpass" class="form-control" name="">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">New Password</label>
+            <div class="col-sm-9">
+              <input type="password" ng-model="abc.password" class="form-control"  name="">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Confirm Password</label>
+            <div class="col-sm-9">
+              <input type="Password" ng-model="abc.confirm_password" class="form-control"  name="">
+            </div>
+          </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button ng-click="update_pass()" class="btn btn-primary" data-dismiss="modal">Update</button>
+        </div>            
+    </div>
+  </div>
+</div>
+</div>

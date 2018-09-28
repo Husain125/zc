@@ -1,0 +1,80 @@
+<div ng-controller="booking" ng-init="demo()">
+	<div class="card">
+		<div class="card-body">
+			<h2>Booking Confirmation</h2>
+			<hr>
+			<div class="row">
+				<div class="col-md-6">ABCD</div>
+				<div class="col-md-6">
+				<p>Car Details</p>
+					<table class="table">
+						<tr>
+							<th>Brand</th>
+							<td>: <span ng-bind="newData.brand"></span></td>
+						</tr>				
+						<tr>
+							<th>Car Model</th>
+							<td>: <span ng-bind="newData.model"></span></td>
+						</tr>
+						<tr>
+							<th>Seater</th>
+							<td>: <span ng-bind="newData.seater"></span></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="card">
+		<div class="card-body">
+			hello
+		</div>
+	</div>
+	<br>
+	<div class="card">
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-4">
+					<h2 class="card-title">Fare</h2>
+					<table class="table-striped">
+						<tr>
+							<td>Fare</td>
+							<td> </td>
+							<td> :    &#8377; <span ng-bind="newData.price"></span></td>
+						</tr>
+						<tr>
+							<td>Refundable Deposit</td>
+							<td> </td>
+							<td> :  &#8377; <span ng-bind="newData.deposite_amt"></span></td>
+						</tr>
+						<tr>
+							<td>Total Amount</td>
+							<td></td>
+							<td>:  &#8377; <span ng-bind="newData.total"></span></td>
+						</tr>
+					</table>
+				</div>
+				<div class="col-md-4">
+					<h2 class="card-title">Excess Charge</h2>
+					<p>Excess Kms Charge : &#8377;<span ng-bind="newData.price_per_km"></span>/km</p>
+					<p>Excess Hour Charge : &#8377;<span ng-bind="newData.extra_price"></span>/km</p>
+				</div>
+				<div class="col-md-4">
+					<h6 class="card-title">Fare Includes</h6>
+					<p>Free Kms : <span ng-bind="newData.km">Km</span></p>
+					<span ng-if="newData.insurance_include==1"><i class="fa fa-umbrella" aria-hidden="true"></i>Insurance </span>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span ng-if="newData.tax_include==1	"><i class="fa fa-university" aria-hidden="true"></i>Tax</span>
+					<br>
+					<span ng-if="newData.fuel_include==1"><i class="fa fa-thermometer-full" aria-hidden="true">Fuel</i></span>
+				</div>
+			</div>
+			<br>
+			<div class="float-right">
+				<button class="btn btn-info" ng-click="booking()">Back to Vehicle</button>
+				<button class="btn btn-primary" ng-click="savedata(newData)">Proceed to payment</button>
+			</div>
+		</div>
+	</div>
+</div>

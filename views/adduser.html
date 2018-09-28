@@ -1,0 +1,100 @@
+<div class="col-12 grid-margin" ng-controller="user">
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">Add User</h3>
+      <hr>
+      <div class="alert alert-danger" ng-if="msg">
+        <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+      {{msg}}
+    </div>
+      <form class="form-sample">
+        <p class="card-description">
+         Add New User
+        </p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">User Name</label>
+              <div class="col-sm-8">
+                  <input type="text" ng-model="newData.user_name" class="form-control" placeholder="User name here" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Email Id</label>
+              <div class="col-sm-8">
+                  <input type="email" placeholder="Email id here" ng-model="newData.email_id" class="form-control" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Mobile Number</label>
+              <div class="col-sm-8">
+                  <input type="number" placeholder="Mobile number here" ng-model="newData.mobile_number" class="form-control" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">gender</label>
+              <div class="col-sm-3">
+                  <div class="form-radio">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" ng-model="newData.gender" name="insurance_include" id="membershipRadios1" value="1" required> Male
+                    <i class="input-helper"></i></label>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-radio">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" ng-model="newData.gender" name="insurance_include" id="membershipRadios2" value="0" required> Female
+                    <i class="input-helper"></i></label>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div> 
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Address</label>
+              <div class="col-sm-8">
+                  <textarea type="email_id" placeholder="Address here" ng-model="newData.address" class="form-control" rows="5" required></textarea>
+              </div>
+            </div>
+          </div>
+        </div>   
+         <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Licence No.</label>
+              <div class="col-sm-8">
+                  <input type="text" placeholder="Licence Number here" ng-model="newData.licence" class="form-control" required>
+              </div>
+             </div>
+            </div>
+          </div>
+          <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Adhaar No.</label>
+              <div class="col-sm-8">
+                  <input type="text" placeholder="adhaar Number here" ng-model="newData.adhaar" class="form-control" required>
+              </div>
+             </div>
+            </div>
+          </div>
+        <button ng-click="adduser()" type="submit" id="loginSubmit" class="btn btn-success loginFormElement">Add User</button>
+        <p id="alarmmsg"></p>
+      </form>
+    </div>
+  </div>
+</div>

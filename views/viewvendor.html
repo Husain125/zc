@@ -1,0 +1,242 @@
+<div class="card">
+    
+<div class="card-body">
+          
+<div np-controller="viewvendor" ng-init="getData()">
+<h3>Vendor</h3>
+<p class="card-description">
+    Add New <a href="#!Addvendor"> <i class="fa fa-plus" style="float: right; font-size: 22px;"></i></a>
+     </p>
+    <div class="card-body table-responsive">
+        <table class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Contact Number</th>
+                    <th>Create Time</th>
+                    <th>Status</th>
+                    <th>Manage</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <b>{{getDatetime()}}</b>
+                <tr ng-repeat="x in allData">
+                    <td ng-bind="$index+1"></td>
+                    <td ng-bind="x.vendor_name"></td>
+                    <td ng-bind="x.contact_number"></td>
+                    <td ng-bind="x.created_at"></td>
+                    <td >
+                            <div ng-if="x.status == '1' ">
+                                    Active
+                            </div>
+                                    
+                            <div ng-if="x.status == '0' ">
+                                    Deactive
+                            </div>
+                    </td>
+                    <td><div class="btn-group dropdown">
+                        <button type="button" class="btn btn-teal dropdown-toggle btn-sm btn btn-success" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Manage
+                        </button>
+                        <div class="dropdown-menu">
+
+                            <a class="text-center btn" style="font-size: 18px;" ng-click="askUpdate(x)" data-target="#addModal" data-toggle="modal" ><i class="fa fa-pencil"></i>Edit</a>
+                            <div class="dropdown-divider"></div>
+                            <div>
+                                    <div ng-if="x.status == '0' ">
+                                            <a class=" text-center btn" ng-click="askActive(x)" data-target="#Active" data-toggle="modal"><i class="fa fa-history" aria-hidden="true"></i>Active</a>
+                                    </div>
+                                            
+                                    <div ng-if="x.status == '1' ">
+                                            <a class=" text-center btn" ng-click="askDelete(x)" data-target="#delModal" data-toggle="modal"><i class="fa fa-share" aria-hidden="true"></i>Deactive</a>
+                                    </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a class="text-center btn"  ng-click="askView(x)" data-target="#viewModal" data-toggle="modal" ><i class="fa fa-info-circle" aria-hidden="true"></i>View More</a>
+                        </div>
+                      </div>
+                   </td>
+                    <!-- <td><button ng-click="askDelete(x)" data-target="#delModal" data-toggle="modal"  class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
+                    <td><button ng-click="askUpdate(x)" data-target="#addModal" data-toggle="modal" class="btn btn-info"><i class="fa fa-pencil"></i></button></td> -->
+                </tr>
+            </tbody>
+        </table>
+    
+        <div class="modal fade" id="addModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Update Vendor</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="card-body" name="vendor">
+                        <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Name*</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="vendor_name" ng-model="newData.vendor_name" class="form-control" required/>
+                                    <span class="danger" ng-show="vendor.vendor_name.$touched && vendor.vendor_name.$invalid">The name is required.</span>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                  <label class="col-sm-4 col-form-label">Address*</label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="address" ng-model="newData.address" class="form-control" required>
+                                    <span class="danger" ng-show="vendor.address.$touched && vendor.address.$invalid">The address is required.</span>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                  <label class="col-sm-4 col-form-label">Contact Number*</label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="contact_number" ng-model="newData.contact_number" class="form-control" required maxlength="11" minlength="10">
+                                    <span class="danger" ng-show="vendor.contact_number.$touched && vendor.contact_number.$invalid">The Contact Number is required.</span>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group row">
+                                  <label class="col-sm-4 col-form-label">Gender*</label>
+                                  <div class="col-sm-4">
+                                    <div class="form-radio">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" ng-model="newData.gender" name="gender" id="membershipRadios1" value="male" required> Male
+                                      <i class="input-helper"></i></label>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <div class="form-radio">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" ng-model="newData.gender" name="gender" id="membershipRadios2" value="female" required> female
+                                      <i class="input-helper"></i></label>
+                                    </div>
+                                  </div>
+                                  <!-- <span class="danger" ng-hide="vendor.gender.$untouched && vendor.gender.$pristine">The Gender 2 is required.</span> -->
+                                  <span class="error" ng-show="vendor.gender.$error.radio">The Gender is required.</span>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Image*</label>
+                                <div class="col-sm-8">
+                                    <input type = "file" class="form-control" file-model = "myFile"/>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Email Id*</label>
+                                <div class="col-sm-8">
+                                  <input type="email" name="email_id" ng-model="newData.email_id" class="form-control" required>
+                                  <span class="danger" ng-show="vendor.email_id.$touched && vendor.email_id.$invalid">The Insert Email Id is required.</span>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        </form>                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button ng-click="add()" class="btn btn-primary" data-dismiss="modal">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="viewModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>view Vendor</h3>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-condensed table-bordered">
+                                <tr>
+                                    <th>Name</th>
+                                    <td ng-bind="selectedObj.vendor_name"></td>
+                                </tr>
+                                <tr>
+                                    <th>Address</th>
+                                    <td ng-bind="selectedObj.address"></td>
+                                </tr>
+                                <tr>
+                                    <th>Contact Number</th>
+                                    <td ng-bind="selectedObj.contact_number"></td>
+                                </tr>
+                                <tr>
+                                    <th>Gender</th>
+                                    <td ng-bind="selectedObj.gender"></td>
+                                </tr>
+                                <tr>
+                                    <th>vendor Image</th>
+                                    <td ng-bind="selectedObj.profile_image"></td>
+                                </tr>
+                                <tr>
+                                    <th>Email Id</th>
+                                    <td ng-bind="selectedObj.email_id"></td>
+                                </tr>
+                        </table>     
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="delModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Delete</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are Sure Want to Delete This <b>{{ selectedObj.vendor_name }}</b></p>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button ng-click="deactive(selectedObj)" class="btn btn-primary" data-dismiss="modal">Deactive</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="Active">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Active</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are Sure Want to Deactive This <b>{{ selectedObj.vendor_name }}</b></p>
+                            
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button ng-click="active(selectedObj)" class="btn btn-primary" data-dismiss="modal">Active</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
